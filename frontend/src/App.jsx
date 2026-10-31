@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import InfoCards from './components/InfoCards/InfoCards'
 import About from './pages/About'
 import Projects from './pages/Projects'
+import Services from './pages/Services'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <InfoCards />
         <About />
         <Projects />
+        <Services />
       </main>
     </div>
   )
