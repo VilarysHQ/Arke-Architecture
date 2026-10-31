@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
 }
 
 body {
-  min-height: 100vh;
+  margin: 0;
+  min-width: 320px;
+  background-color: #0c0c0c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

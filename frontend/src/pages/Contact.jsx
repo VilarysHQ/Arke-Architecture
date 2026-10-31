@@ -1,18 +1,13 @@
 import { MapPin, Mail, Phone, ArrowRight } from "lucide-react"
 import { contactData } from "../data/contactData"
-
-// Importamos la imagen de fondo
 import contactBg from "../assets/Contact/contactBg.png"
 
 function Contact() {
-  // Función para evitar que la página se recargue al enviar el formulario
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar los datos
     console.log("Formulario enviado")
   }
 
-  // Función auxiliar para renderizar el ícono correcto
   const renderIcon = (type) => {
     switch (type) {
       case "location": return <MapPin size={20} className="text-[#e4cdb9]" />
@@ -24,18 +19,16 @@ function Contact() {
 
   return (
     <section 
+      id="contacto"
       className="relative w-full bg-cover bg-center bg-no-repeat py-24 text-white"
       style={{ backgroundImage: `url(${contactBg})` }}
     >
-      {/* Overlay oscuro para que el texto resalte */}
       <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-20">
         
-        {/* Grid Principal: Texto a la izquierda, Formulario a la derecha */}
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
           
-          {/* COLUMNA IZQUIERDA: Información */}
           <div className="flex flex-col justify-center">
             <p className="mb-4 text-xs font-semibold tracking-[0.2em] text-[#e4cdb9] uppercase">
               {contactData.subtitle}
@@ -49,14 +42,12 @@ function Contact() {
               {contactData.description}
             </p>
 
-            {/* Info de Contacto (Ubicación, Correo, Teléfono) */}
             <div className="flex flex-col gap-8 md:flex-row md:gap-12">
               {contactData.info.map((item) => (
                 <div key={item.id} className="flex flex-col gap-3">
                   {renderIcon(item.type)}
                   <div>
                     <h4 className="text-sm font-medium text-white">{item.title}</h4>
-                    {/* Usamos whitespace-pre-line para respetar el salto de línea (\n) de nuestra data */}
                     <p className="mt-1 whitespace-pre-line text-xs leading-relaxed text-gray-400">
                       {item.value}
                     </p>
@@ -66,9 +57,7 @@ function Contact() {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Formulario */}
           <div className="flex items-center">
-            {/* Contenedor del formulario con fondo semi-transparente y blur */}
             <div className="w-full rounded-xl border border-white/10 bg-black/40 p-8 backdrop-blur-md md:p-10">
               
               <h3 className="mb-8 font-serif text-2xl text-white">
@@ -77,7 +66,6 @@ function Contact() {
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 
-                {/* Fila 1: Nombre y Correo */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <label className="text-[11px] uppercase tracking-widest text-gray-400">Nombre completo</label>
@@ -97,7 +85,6 @@ function Contact() {
                   </div>
                 </div>
 
-                {/* Fila 2: Teléfono y Tipo de Proyecto */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <label className="text-[11px] uppercase tracking-widest text-gray-400">Teléfono</label>
@@ -118,7 +105,6 @@ function Contact() {
                   </div>
                 </div>
 
-                {/* Fila 3: Mensaje */}
                 <div className="flex flex-col gap-2">
                   <label className="text-[11px] uppercase tracking-widest text-gray-400">Cuéntanos sobre tu proyecto</label>
                   <textarea 
@@ -128,7 +114,6 @@ function Contact() {
                   ></textarea>
                 </div>
 
-                {/* Botón de Enviar */}
                 <button 
                   type="submit" 
                   className="mt-4 flex w-full items-center justify-center gap-3 rounded-md bg-[#e4cdb9] py-4 text-sm font-semibold text-black transition-colors hover:bg-white"

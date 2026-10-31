@@ -3,7 +3,7 @@ import Home from './pages/Home'
 import InfoCards from './components/InfoCards/InfoCards'
 import About from './pages/About'
 import Projects from './pages/Projects'
-import Services from './pages/Services'
+import Services from './components/Services'
 import Contact from './pages/Contact'
 import Footer from './pages/Footer'
 
@@ -18,8 +18,8 @@ function App() {
       <main>
         <Home />
         <InfoCards />
-        <About />
         <Projects />
+        <About />
         <Services />
         <Testiomonial />
         <Process />

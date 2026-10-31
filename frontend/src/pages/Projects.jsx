@@ -1,69 +1,349 @@
-import { useState } from "react"
-import { ArrowRight } from "lucide-react"
+
+import { useEffect, useRef, useState } from "react"
+import { ArrowUpRight, ArrowRight } from "lucide-react"
 import { projectsData } from "../data/projectsData"
 import ProjectModal from "../components/Projects/ProjectModal"
 
+function ProjectCard({ project, index, featured, onOpen }) {
+  const buttonRef = useRef(null)
+
+  return (
+    <button
+      ref={buttonRef}
+      type="button"
+      onClick={() => onOpen(project, buttonRef.current)}
+      aria-label={`Explorar proyecto ${project.title}`}
+      className={`
+        group relative block w-full cursor-pointer
+        text-left outline-none
+        focus-visible:ring-2 focus-visible:ring-[#e4cdb9]
+        focus-visible:ring-offset-4
+        focus-visible:ring-offset-[#0c0c0c]
+        ${featured ? "lg:col-span-2" : ""}
+      `}
+    >
+      {/* Imagen */}
+      <div
+        className={`
+          relative w-full overflow-hidden
+          bg-[#1a1a1a]
+          ${featured
+            ? "aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+            : "aspect-[4/3]"}
+        `}
+      >
+        <img
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          className="
+            h-full w-full object-cover
+            transition-transform duration-700
+            ease-out
+            group-hover:scale-[1.045]
+            group-focus-visible:scale-[1.045]
+            motion-reduce:transition-none
+          "
+        />
+
+        {/* Overlay */}
+        <div
+          className="
+            pointer-events-none absolute inset-0
+            bg-gradient-to-t
+            from-black/65 via-black/10 to-transparent
+            opacity-60
+            transition-opacity duration-500
+            group-hover:opacity-100
+          "
+        />
+
+        {/* Número */}
+        <span
+          className="
+            absolute left-5 top-5
+            text-xs font-medium tracking-[0.25em]
+            text-white/90
+            md:left-8 md:top-8
+          "
+        >
+          0{index + 1} / 03
+        </span>
+
+        {/* Botón visual */}
+        <span
+          className="
+            absolute right-5 top-5
+            flex h-11 w-11
+            items-center justify-center
+            rounded-full
+            border border-white/40
+            bg-black/20
+            text-white
+            backdrop-blur-md
+            transition-all duration-300
+            group-hover:border-[#e4cdb9]
+            group-hover:bg-[#e4cdb9]
+            group-hover:text-[#111]
+            md:right-8 md:top-8
+          "
+        >
+          <ArrowUpRight
+            size={19}
+            className="
+              transition-transform duration-300
+              group-hover:translate-x-0.5
+              group-hover:-translate-y-0.5
+              motion-reduce:transition-none
+            "
+          />
+        </span>
+
+        {/* Etiqueta inferior */}
+        <div
+          className="
+            absolute bottom-5 left-5 right-5
+            flex items-end justify-between
+            gap-4
+            md:bottom-8 md:left-8 md:right-8
+          "
+        >
+          <div>
+            <p
+              className="
+                mb-2 text-[10px]
+                font-medium uppercase
+                tracking-[0.23em]
+                text-[#e4cdb9]
+              "
+            >
+              {project.category} — {project.location}
+            </p>
+
+            <h3
+              className={`
+                font-serif font-normal
+                leading-tight text-white
+                ${featured
+                  ? "text-3xl md:text-5xl"
+                  : "text-2xl md:text-3xl"}
+              `}
+            >
+              {project.title}
+            </h3>
+          </div>
+
+          <ArrowRight
+            size={22}
+            className="
+              hidden shrink-0 text-white
+              transition-transform duration-300
+              group-hover:translate-x-2
+              sm:block
+            "
+          />
+        </div>
+      </div>
+    </button>
+  )
+}
+
 function Projects() {
-    const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
-    return (
-        <>
-            <section className="w-full bg-[#0c0c0c] py-20 text-white">
-                <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-20">
+  const triggerRef = useRef(null)
 
-                    {/* Header Section */}
-                    <div className="mb-10 flex items-end justify-between border-b border-white/10 pb-4">
-                        <h2 className="font-serif text-4xl md:text-5xl">Proyectos destacados</h2>
-                        <a href="/" className="hidden items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white md:flex">
-                            Ver todos los proyectos
-                            <ArrowRight size={16} />
-                        </a>
-                    </div>
+  const featured = projectsData[0]
+  const secondary = projectsData.slice(1)
 
-                    {/* Projects Grid */}
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        {projectsData.map((project) => (
-                            <div 
-                                key={project.id} 
-                                className="group cursor-pointer" 
-                                onClick={() => setSelectedProject(project)}
-                            >
-                                {/* Image Container */}
-                                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                </div>
-
-                                {/* Info Container */}
-                                <div className="flex items-center justify-between border-b border-white/10 py-5">
-                                    <div>
-                                        <h3 className="mb-1 text-lg font-serif">{project.title}</h3>
-                                        <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-gray-400">
-                                            <span>{project.category}</span>
-                                            <span className="h-3 w-[1px] bg-white/20"></span>
-                                            <span>{project.location}</span>
-                                        </div>
-                                    </div>
-                                    <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition-colors group-hover:bg-white group-hover:text-black">
-                                        <ArrowRight size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Modal Component */}
-            <ProjectModal 
-                project={selectedProject} 
-                onClose={() => setSelectedProject(null)} 
-            />
-        </>
+  const openProject = (project, trigger) => {
+    triggerRef.current = trigger
+    setSelectedIndex(
+      projectsData.findIndex((item) => item.id === project.id)
     )
+    setSelectedProject(project)
+  }
+
+  const closeProject = () => {
+    setSelectedProject(null)
+
+    requestAnimationFrame(() => {
+      triggerRef.current?.focus()
+    })
+  }
+
+  const navigateProject = (direction) => {
+    const nextIndex =
+      (selectedIndex + direction + projectsData.length) %
+      projectsData.length
+
+    setSelectedIndex(nextIndex)
+    setSelectedProject(projectsData[nextIndex])
+  }
+
+  return (
+    <>
+      <section
+        id="proyectos"
+        className="
+          relative w-full
+          scroll-mt-[76px]
+          bg-[#0c0c0c]
+          py-24 text-white
+          md:py-32
+        "
+      >
+        <div
+          className="
+            mx-auto w-full
+            max-w-[1440px]
+            px-6 md:px-12 lg:px-20
+          "
+        >
+          {/* Encabezado editorial */}
+          <div
+            className="
+              mb-12 flex flex-col
+              gap-8
+              md:mb-16
+              md:flex-row
+              md:items-end
+              md:justify-between
+            "
+          >
+            <div className="max-w-3xl">
+              <p
+                className="
+                  mb-5 flex items-center gap-4
+                  text-[11px] font-medium
+                  uppercase tracking-[0.28em]
+                  text-[#e4cdb9]
+                "
+              >
+                <span className="h-px w-8 bg-[#e4cdb9]" />
+                Nuestro portafolio
+              </p>
+
+              <h2
+                className="
+                  font-serif font-normal
+                  text-4xl leading-[1.1]
+                  tracking-tight
+                  sm:text-5xl
+                  lg:text-6xl
+                "
+              >
+                Espacios que
+                <br />
+                <span className="italic text-[#e4cdb9]">
+                  cuentan historias.
+                </span>
+              </h2>
+            </div>
+
+            <p
+              className="
+                max-w-sm text-sm
+                leading-7 text-white/50
+                md:pb-2
+              "
+            >
+              Cada proyecto nace de una visión única.
+              Exploramos la relación entre arquitectura,
+              naturaleza y personas para crear espacios
+              que trascienden el tiempo.
+            </p>
+          </div>
+
+          {/* Galería */}
+          {featured && (
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <ProjectCard
+                project={featured}
+                index={0}
+                featured
+                onOpen={openProject}
+              />
+
+              {secondary.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index + 1}
+                  featured={false}
+                  onOpen={openProject}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Cierre editorial */}
+          <div
+            className="
+              mt-16 flex flex-col
+              gap-5 border-t border-white/10
+              pt-8
+              md:mt-20
+              md:flex-row
+              md:items-center
+              md:justify-between
+            "
+          >
+            <div className="flex items-center gap-4">
+              <span className="font-serif text-3xl text-[#e4cdb9]">
+                ARKÉ
+              </span>
+
+              <span
+                className="
+                  h-8 w-px bg-white/15
+                "
+              />
+
+              <p
+                className="
+                  max-w-[200px] text-xs
+                  leading-5 text-white/45
+                "
+              >
+                Arquitectura que conecta
+                espacios, personas y emociones.
+              </p>
+            </div>
+
+            <a
+              href="#contacto"
+              className="
+                group inline-flex w-fit
+                items-center gap-3
+                text-sm font-medium text-white
+                transition-colors
+                hover:text-[#e4cdb9]
+              "
+            >
+              ¿Tienes un proyecto en mente?
+              <ArrowUpRight
+                size={18}
+                className="
+                  transition-transform duration-300
+                  group-hover:translate-x-1
+                  group-hover:-translate-y-1
+                "
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <ProjectModal
+        project={selectedProject}
+        onClose={closeProject}
+        onPrevious={() => navigateProject(-1)}
+        onNext={() => navigateProject(1)}
+      />
+    </>
+  )
 }
 
 export default Projects

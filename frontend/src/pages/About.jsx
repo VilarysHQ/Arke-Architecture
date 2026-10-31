@@ -4,8 +4,9 @@ import { MoveRight } from "lucide-react"
 
 function About() {
   return (
-    // Section wrapper: full width, no padding so the image touches the left edge
-    <section className="w-full bg-[#0c0c0c] text-white">
+    // Section wrapper: full width, no padding so the image touches the left edge.
+    // Added id="nosotros" so the Hero button can scroll to this section.
+    <section id="nosotros" className="w-full bg-[#0c0c0c] text-white">
       
       {/* Grid container: 1 column on mobile, 2 columns on desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -43,7 +44,7 @@ function About() {
 
           {/* Button */}
           <a 
-            href="/" 
+            href="#contacto" // Cambié el "/" por "#contacto" para que baje al formulario
             className="group flex w-fit items-center gap-3 text-sm font-medium text-white transition-colors hover:text-[#e4cdb9]"
           >
             {aboutContent.buttonText}
