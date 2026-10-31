@@ -1,12 +1,16 @@
-import Navbar from '../src/components/Navbar/Navbar'
-import Home from '../src/pages/Home'
+import Navbar from './components/Navbar/Navbar'
+import Home from './pages/Home'
+import InfoCards from './components/InfoCards/InfoCards'
 
 function App() {
   return (
-    <main>
+    <div className="min-h-screen bg-[#0c0c0c]">
       <Navbar />
-      <Home />
-    </main>
+      <main>
+        <Home />
+        <InfoCards />
+      </main>
+    </div>
   )
 }
 
