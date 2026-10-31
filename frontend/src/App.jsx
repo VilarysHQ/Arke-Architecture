@@ -4,6 +4,7 @@ import InfoCards from './components/InfoCards/InfoCards'
 import About from './pages/About'
 import Projects from './pages/Projects'
 import Services from './pages/Services'
+import Contact from './pages/Contact'
 
 // Components
 import Process from './components/Process'
@@ -21,6 +22,7 @@ function App() {
         <Services />
         <Testiomonial />
         <Process />
+        <Contact />
       </main>
     </div>
   )
