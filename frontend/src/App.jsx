@@ -5,6 +5,7 @@ import About from './pages/About'
 import Projects from './pages/Projects'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Footer from './pages/Footer'
 
 // Components
 import Process from './components/Process'
@@ -23,6 +24,7 @@ function App() {
         <Testiomonial />
         <Process />
         <Contact />
+        <Footer />
       </main>
     </div>
   )
