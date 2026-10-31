@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home'
 import InfoCards from './components/InfoCards/InfoCards'
+import About from './pages/About'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <main>
         <Home />
         <InfoCards />
+        <About />
       </main>
     </div>
   )
