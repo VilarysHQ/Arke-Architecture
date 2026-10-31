@@ -5,6 +5,10 @@ import About from './pages/About'
 import Projects from './pages/Projects'
 import Services from './pages/Services'
 
+// Components
+import Process from './components/Process'
+import Testiomonial from './components/Testimonial'
+
 function App() {
   return (
     <div className="min-h-screen bg-[#0c0c0c]">
@@ -15,6 +19,8 @@ function App() {
         <About />
         <Projects />
         <Services />
+        <Testiomonial />
+        <Process />
       </main>
     </div>
   )
