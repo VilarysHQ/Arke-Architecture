@@ -6,14 +6,12 @@ import Projects from './pages/Projects'
 import Services from './components/Services'
 import Contact from './pages/Contact'
 import Footer from './pages/Footer'
-
-// Components
 import Process from './components/Process'
-import Testiomonial from './components/Testimonial'
+import Testimonial from './components/Testimonial'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0c0c0c]">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#0c0c0c]">
       <Navbar />
       <main>
         <Home />
@@ -21,11 +19,11 @@ function App() {
         <Projects />
         <About />
         <Services />
-        <Testiomonial />
+        <Testimonial />
         <Process />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </div>
   )
 }
